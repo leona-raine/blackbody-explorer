@@ -1,10 +1,3 @@
-"""
-Additional note:
-Originally on Jupyer notebook as the newer version of vscode cannot launch juypter extension
-
-"""
-
-
 import numpy as np # for numerical computations and array handling
 import matplotlib.pyplot as plt # visualize blackbody spectra arrays
 
