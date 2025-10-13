@@ -3,7 +3,10 @@ from phase1 import plot_blackbody_2d, plot_blackbody_3d
 
 st.title("Blackbody Explorer - Phase 2 UI Lightweight")
 
-# for temperatures
+# -------------------
+# TEMPERATURE INPUTS
+# -------------------
+temps = []
 for i, default in enumerate([3000, 3000, 3000], start=1):
     temp_key = f"temp{i}"
     temp_input_key = f"temp{i}_input"
@@ -13,23 +16,26 @@ for i, default in enumerate([3000, 3000, 3000], start=1):
     if temp_input_key not in st.session_state:
         st.session_state[temp_input_key] = default
 
-    # sync callbacks
+    # Sync callbacks
     def update_slider(i=i):
         st.session_state[f"temp{i}"] = st.session_state[f"temp{i}_input"]
 
     def update_input(i=i):
         st.session_state[f"temp{i}_input"] = st.session_state[f"temp{i}"]
 
-    col1, col2 = st.columns([4,1])
+    st.write(f"Temperature {i} (K)")
+    col1, col2 = st.columns([1, 4])
     with col1:
-        st.slider(f"Temperature {i} (K)", 1000 if i<3 else 3000, 10000,
-                  key=temp_key, on_change=update_input)
-    with col2:
-        st.number_input(f"", 1000 if i<3 else 3000, 10000,
+        st.number_input("", 1000 if i < 3 else 3000, 10000,
                         key=temp_input_key, on_change=update_slider)
+    with col2:
+        st.slider("", 1000 if i < 3 else 3000, 10000,
+                  key=temp_key, on_change=update_input)
 
-# for wavelength
-# wavelength start
+# -------------------
+# WAVELENGTH INPUTS
+# -------------------
+# Start wavelength
 if "wl_start" not in st.session_state:
     st.session_state.wl_start = 380
 if "wl_start_input" not in st.session_state:
@@ -41,13 +47,14 @@ def update_wl_slider():
 def update_wl_input():
     st.session_state.wl_start_input = st.session_state.wl_start
 
-col1, col2 = st.columns([4,1])
+st.write("Start Wavelength (nm)")
+col1, col2 = st.columns([1,4])
 with col1:
-    st.slider("Start Wavelength (nm)", 100, 3000, key="wl_start", on_change=update_wl_input)
-with col2:
     st.number_input("", 100, 3000, key="wl_start_input", on_change=update_wl_slider)
+with col2:
+    st.slider("", 100, 3000, key="wl_start", on_change=update_wl_input)
 
-# wavelength end
+# End wavelength
 if "wl_end" not in st.session_state:
     st.session_state.wl_end = 750
 if "wl_end_input" not in st.session_state:
@@ -59,26 +66,26 @@ def update_wl_end_slider():
 def update_wl_end_input():
     st.session_state.wl_end_input = st.session_state.wl_end
 
-col1, col2 = st.columns([4,1])
+st.write("End Wavelength (nm)")
+col1, col2 = st.columns([1,4])
 with col1:
-    st.slider("End Wavelength (nm)", 100, 3000, key="wl_end", on_change=update_wl_end_input)
-with col2:
     st.number_input("", 100, 3000, key="wl_end_input", on_change=update_wl_end_slider)
+with col2:
+    st.slider("", 100, 3000, key="wl_end", on_change=update_wl_end_input)
 
-# for plotting
+# -------------------
+# PLOTTING SIDE
+# -------------------
 temps = [st.session_state.temp1, st.session_state.temp2, st.session_state.temp3]
 wl_range = (st.session_state.wl_start*1e-9, st.session_state.wl_end*1e-9)
 
-# create two columns for plots
-plot_col1, plot_col2 = st.columns(2)
+# Put 2D and 3D plots side by side
+col_plot1, col_plot2 = st.columns([1,1])
 
-with plot_col1:
-    st.subheader("2D Blackbody Spectrum")
+with col_plot1:
     fig2d = plot_blackbody_2d(temps, wl_range)
-    st.pyplot(fig2d, use_container_width=True)
+    st.pyplot(fig2d)
 
-with plot_col2:
-    st.subheader("3D Blackbody Spectrum")
+with col_plot2:
     fig3d = plot_blackbody_3d(temps, wl_range)
-    st.pyplot(fig3d, use_container_width=True)
-
+    st.pyplot(fig3d)
