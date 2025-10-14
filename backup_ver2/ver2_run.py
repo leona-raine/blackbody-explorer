@@ -46,14 +46,14 @@ with col_plot:
 
     st.markdown("---")
     if st.button("Show 2D spectra for example temperatures"):
-        fig2d, ax = plt.subplots(figsize=(10,4), facecolor="none") 
-        fig2d.patch.set_alpha(0)
+        fig2d, ax = plt.subplots(figsize=(10,4), facecolor="#111111")
+        fig2d.patch.set_alpha(1)
 
         wavelengths = np.linspace(wl_min_nm*1e-9, wl_max_nm*1e-9, n_wavelengths)
         example_temps = [temp_start, temp_mid, temp_end]
         colors = ["#FF7F0E", "#1F77B4", "#2CA02C"]
 
-        ax.set_facecolor("none")
+        ax.set_facecolor("#111111")
         for spine in ax.spines.values():
             spine.set_color('white')
             spine.set_linewidth(1.2)
@@ -66,14 +66,16 @@ with col_plot:
         for T, color in zip(example_temps, colors):
             radiance = planck_law(wavelengths, T)
             ax.plot(wavelengths*1e9, radiance, color=color, lw=2.5, label=f"{T} K")
-            ax.fill_between(wavelengths*1e9, 0, radiance, color=color, alpha=0.1)
+            ax.fill_between(wavelengths*1e9, 0, radiance, color=color, alpha=0.2)
 
         ax.set_title("Blackbody Radiation Spectra", fontsize=14, weight='bold')
         ax.set_xlabel("Wavelength (nm)", fontsize=12)
         ax.set_ylabel("Spectral Radiance", fontsize=12)
 
-        ax.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
+        ax.grid(True, which='major', linestyle='--', linewidth=0.5, alpha=0.6, color='white')
         ax.minorticks_on()
-        ax.legend(frameon=True, facecolor="none", edgecolor="white", labelcolor='white')
+        ax.grid(True, which='minor', linestyle=':', linewidth=0.3, alpha=0.4, color='white')
+
+        ax.legend(frameon=True, facecolor="#111111", edgecolor='white', labelcolor='white')
 
         st.pyplot(fig2d, use_container_width=True)
