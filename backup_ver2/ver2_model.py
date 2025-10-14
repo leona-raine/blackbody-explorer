@@ -91,7 +91,6 @@ def plot_blackbody_3d_interactive(
     fig = go.Figure(
         data=[base_trace],
         layout=go.Layout(
-            title="Animated Blackbody Spectrum (3D)",
             scene=dict(
                 xaxis=dict(title="Wavelength (nm)"),
                 yaxis=dict(title="Temperature (K)"),
