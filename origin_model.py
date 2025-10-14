@@ -1,19 +1,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
-# constants
-h = 6.62607015e-34  # Planck constant (J·s)
-c = 2.99792458e8    # Speed of light (m/s)
-k = 1.380649e-23    # Boltzmann constant (J/K)
+h = 6.62607015e-34  # planck constant
+c = 2.99792458e8    # speed of light
+k = 1.380649e-23    # boltzmann constant
 
 def planck(wavelength, T):
-    """Blackbody spectral radiance via Planck's Law."""
     a = 2.0 * h * c**2 / (wavelength**5)
     b = np.exp(h * c / (wavelength * k * T)) - 1.0
     return a / b
 
-def plot_blackbody_2d(temperatures, wavelength_range):
-    """Static 2D blackbody spectra using Matplotlib."""
+def plot_blackbody_2d(temperatures, wavelength_range): # static 2d
     wavelengths = np.linspace(wavelength_range[0], wavelength_range[1], 500)
     fig, ax = plt.subplots(figsize=(10, 6))
     for T in temperatures:
@@ -27,11 +25,7 @@ def plot_blackbody_2d(temperatures, wavelength_range):
     ax.grid(True)
     return fig
 
-# 🔸 NEW: Interactive 3D version using Plotly
-import plotly.graph_objects as go
-
-def plot_blackbody_3d_interactive(temperatures, wavelength_range):
-    """Interactive 3D blackbody radiation surface plot using Plotly."""
+def plot_blackbody_3d_interactive(temperatures, wavelength_range): # 3d is now interactive
     wavelengths = np.linspace(wavelength_range[0], wavelength_range[1], 300)
     W, T = np.meshgrid(wavelengths, temperatures)
     Z = planck(W, T)
