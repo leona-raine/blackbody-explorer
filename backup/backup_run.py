@@ -9,7 +9,7 @@ Run:
 """
 
 import streamlit as st
-from interactive_3d import plot_blackbody_2d, plot_blackbody_3d_interactive
+from backup_3d import plot_blackbody_2d, plot_blackbody_3d_interactive
 
 st.set_page_config(layout="wide", page_title="Blackbody Explorer 3D")
 
