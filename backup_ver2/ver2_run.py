@@ -1,7 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-from demo_model import plot_blackbody_3d_interactive, planck_law
+from ver2_model import plot_blackbody_3d_interactive, planck_law
 
 st.set_page_config(layout="wide", page_title="Blackbody Explorer")
 
