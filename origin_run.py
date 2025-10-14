@@ -1,24 +1,18 @@
 import streamlit as st
-from interactive_3d import plot_blackbody_2d, plot_blackbody_3d_interactive
+from origin_model import plot_blackbody_2d, plot_blackbody_3d_interactive
 
 st.set_page_config(layout="wide")
 
-# -------------------
-# TITLE + PLOT TYPE
-# -------------------
 col_title, col_plot_type = st.columns([3, 1])
 with col_title:
     st.title("Blackbody Explorer – Phase 3 (Interactive UI)")
 with col_plot_type:
     plot_type = st.selectbox("", ["3D Interactive", "2D"], key="plot_type", label_visibility="collapsed")
 
-# -------------------
-# INPUTS AND PLOTS
-# -------------------
 col_inputs, col_plot = st.columns([1, 2])
 
 with col_inputs:
-    # TEMPERATURE INPUTS
+    # temperature
     for i, default in enumerate([3000, 4500, 6000], start=1):
         temp_key = f"temp{i}"
         temp_input_key = f"temp{i}_input"
@@ -40,7 +34,7 @@ with col_inputs:
         with c2:
             st.slider("", 1000, 10000, key=temp_key, on_change=update_input)
 
-    # WAVELENGTH INPUTS
+    # wavelength
     for i, (label, default) in enumerate([("Start Wavelength", 380), ("End Wavelength", 750)]):
         key_slider = f"wl_{i}_slider"
         key_input = f"wl_{i}_input"
@@ -62,9 +56,6 @@ with col_inputs:
         with c2:
             st.slider("", 100, 3000, key=key_slider, on_change=update_wl_input)
 
-# -------------------
-# PLOTTING
-# -------------------
 temps = [st.session_state.temp1, st.session_state.temp2, st.session_state.temp3]
 wl_range = (st.session_state.wl_0_slider * 1e-9, st.session_state.wl_1_slider * 1e-9)
 
