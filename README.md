@@ -2,4 +2,4 @@
 - use prototype.ipynb for testing prototype
 
 # Other files / previous ver :
-- backup.py : previous save verW
+- backup.py : previous save ver
