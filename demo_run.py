@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from demo_model import (
-    planck_law,
     plot_blackbody_2d,
     plot_blackbody_3d_interactive,
     plot_blackbody_3d_animated
